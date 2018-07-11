@@ -27,19 +27,21 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     //Android view
-    implementation"com.jakewharton:butterknife:$butterKnife"
+    implementation "com.jakewharton:butterknife:$butterKnife"
+    implementation 'com.android.support:support-v4:27.1.1'
+    implementation 'com.android.support:recyclerview-v7:27.1.1'
     annotationProcessor "com.jakewharton:butterknife-compiler:$butterKnife"
-    implementation"com.android.support:recyclerview-v7:$appcompat"
-    implementation"com.android.support:design:$appcompat"
+    implementation "com.android.support:recyclerview-v7:$appcompat"
+    implementation "com.android.support:design:$appcompat"
 
-    implementation"com.squareup.picasso:picasso:$picassoVersion"
+    implementation "com.squareup.picasso:picasso:$picassoVersion"
     implementation "com.android.support.constraint:constraint-layout:$constraintLayout"
 
 //    Android compatibility stuff
     implementation("com.android.support:appcompat-v7:$appcompat")
 
     //Android background
-    implementation"com.google.code.gson:gson:$gsonVersion"
+    implementation "com.google.code.gson:gson:$gsonVersion"
 
     /*
         TESTS
