@@ -9,10 +9,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import io.github.slupik.bakingapp.R;
-import io.github.slupik.bakingapp.RecipesFragment;
-import io.github.slupik.bakingapp.dummy.DummyContent;
+import io.github.slupik.bakingapp.domain.RecipeBean;
 
-public class MainActivity extends AppCompatActivity implements RecipesFragment.OnListFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements RecipesFragment.RecipeListFragmentInterface {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +20,7 @@ public class MainActivity extends AppCompatActivity implements RecipesFragment.O
     }
 
     @Override
-    public void onListFragmentInteraction(DummyContent.DummyItem item) {
+    public void onListFragmentInteraction(RecipeBean item) {
 
     }
 }

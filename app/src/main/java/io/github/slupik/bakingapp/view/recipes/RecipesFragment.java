@@ -3,7 +3,7 @@
  * All rights reserved. No part of this application may be reproduced or be part of other software, without the prior written permission of the publisher. For permission requests, write to the author(WitasikSebastian@gmail.com).
  */
 
-package io.github.slupik.bakingapp;
+package io.github.slupik.bakingapp.view.recipes;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -15,20 +15,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import io.github.slupik.bakingapp.R;
+import io.github.slupik.bakingapp.domain.RecipeBean;
 import io.github.slupik.bakingapp.dummy.DummyContent;
-import io.github.slupik.bakingapp.dummy.DummyContent.DummyItem;
 
 /**
  * A fragment representing a list of Items.
  * <p/>
- * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
+ * Activities containing this fragment MUST implement the {@link RecipeListFragmentInterface}
  * interface.
  */
 public class RecipesFragment extends Fragment {
 
     private static final String ARG_COLUMN_COUNT = "column-count";
     private int mColumnCount = 1;
-    private OnListFragmentInteractionListener mListener;
+    private RecipeListFragmentInterface mListener;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -78,11 +79,11 @@ public class RecipesFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnListFragmentInteractionListener) {
-            mListener = (OnListFragmentInteractionListener) context;
+        if (context instanceof RecipeListFragmentInterface) {
+            mListener = (RecipeListFragmentInterface) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement OnListFragmentInteractionListener");
+                    + " must implement RecipeListFragmentInterface");
         }
     }
 
@@ -102,8 +103,7 @@ public class RecipesFragment extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onListFragmentInteraction(DummyItem item);
+    public interface RecipeListFragmentInterface {
+        void onListFragmentInteraction(RecipeBean item);
     }
 }
