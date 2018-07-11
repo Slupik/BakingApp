@@ -1,0 +1,51 @@
+/*
+ * Copyright (c) 2018. by Sebastian Witasik
+ * All rights reserved. No part of this application may be reproduced or be part of other software, without the prior written permission of the publisher. For permission requests, write to the author(WitasikSebastian@gmail.com).
+ */
+
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 27
+    defaultConfig {
+        applicationId "io.github.slupik.bakingapp"
+        minSdkVersion 21
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    //Android view
+    implementation"com.jakewharton:butterknife:$butterKnife"
+    annotationProcessor "com.jakewharton:butterknife-compiler:$butterKnife"
+    implementation"com.android.support:recyclerview-v7:$appcompat"
+    implementation"com.android.support:design:$appcompat"
+
+    implementation"com.squareup.picasso:picasso:$picassoVersion"
+    implementation "com.android.support.constraint:constraint-layout:$constraintLayout"
+
+//    Android compatibility stuff
+    implementation("com.android.support:appcompat-v7:$appcompat")
+
+    //Android background
+    implementation"com.google.code.gson:gson:$gsonVersion"
+
+    /*
+        TESTS
+     */
+    testImplementation "junit:junit:$junit"
+    androidTestImplementation "com.android.support.test:runner:$supportTestRunner"
+    androidTestImplementation "com.android.support.test.espresso:espresso-core:$espressoCore"
+
+}
