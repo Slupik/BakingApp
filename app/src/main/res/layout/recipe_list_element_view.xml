@@ -13,8 +13,8 @@
              android:layout_marginLeft="8dp"
              android:layout_marginRight="8dp"
              android:layout_marginTop="4dp"
-             android:background="@android:drawable/dialog_holo_light_frame"
-             android:orientation="horizontal">
+             android:orientation="horizontal"
+             android:background="@android:drawable/dialog_holo_light_frame">
 
     <LinearLayout
         android:id="@+id/recipe_with_image_container_on_list"
