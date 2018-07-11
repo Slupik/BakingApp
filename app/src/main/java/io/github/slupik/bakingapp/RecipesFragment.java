@@ -3,7 +3,7 @@
  * All rights reserved. No part of this application may be reproduced or be part of other software, without the prior written permission of the publisher. For permission requests, write to the author(WitasikSebastian@gmail.com).
  */
 
-package io.github.slupik.bakingapp.view.recipes;
+package io.github.slupik.bakingapp;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -15,7 +15,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import io.github.slupik.bakingapp.R;
 import io.github.slupik.bakingapp.dummy.DummyContent;
 import io.github.slupik.bakingapp.dummy.DummyContent.DummyItem;
 
@@ -27,9 +26,7 @@ import io.github.slupik.bakingapp.dummy.DummyContent.DummyItem;
  */
 public class RecipesFragment extends Fragment {
 
-    // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
 
@@ -40,7 +37,6 @@ public class RecipesFragment extends Fragment {
     public RecipesFragment() {
     }
 
-    // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
     public static RecipesFragment newInstance(int columnCount) {
         RecipesFragment fragment = new RecipesFragment();
@@ -62,7 +58,7 @@ public class RecipesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_recipe_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_recipes_list, container, false);
 
         // Set the adapter
         if (view instanceof RecyclerView) {
@@ -73,7 +69,7 @@ public class RecipesFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new RecipeListRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+            recyclerView.setAdapter(new RecipesRecyclerViewAdapter(DummyContent.ITEMS, mListener));
         }
         return view;
     }

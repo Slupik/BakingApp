@@ -3,7 +3,7 @@
  * All rights reserved. No part of this application may be reproduced or be part of other software, without the prior written permission of the publisher. For permission requests, write to the author(WitasikSebastian@gmail.com).
  */
 
-package io.github.slupik.bakingapp.view.recipes;
+package io.github.slupik.bakingapp;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,21 +13,20 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import io.github.slupik.bakingapp.R;
+import io.github.slupik.bakingapp.RecipesFragment.OnListFragmentInteractionListener;
 import io.github.slupik.bakingapp.dummy.DummyContent.DummyItem;
-import io.github.slupik.bakingapp.view.recipes.RecipesFragment.OnListFragmentInteractionListener;
 
 /**
  * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
  * specified {@link OnListFragmentInteractionListener}.
  * TODO: Replace the implementation with code for your data type.
  */
-public class RecipeListRecyclerViewAdapter extends RecyclerView.Adapter<RecipeListRecyclerViewAdapter.ViewHolder> {
+public class RecipesRecyclerViewAdapter extends RecyclerView.Adapter<RecipesRecyclerViewAdapter.ViewHolder> {
 
     private final List<DummyItem> mValues;
     private final OnListFragmentInteractionListener mListener;
 
-    public RecipeListRecyclerViewAdapter(List<DummyItem> items, OnListFragmentInteractionListener listener) {
+    public RecipesRecyclerViewAdapter(List<DummyItem> items, OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }

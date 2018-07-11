@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import io.github.slupik.bakingapp.R;
+import io.github.slupik.bakingapp.RecipesFragment;
 import io.github.slupik.bakingapp.dummy.DummyContent;
 
 public class MainActivity extends AppCompatActivity implements RecipesFragment.OnListFragmentInteractionListener {
