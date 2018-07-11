@@ -50,7 +50,7 @@ allprojects {
         constraintLayout = "1.1.2"
         supportAnnotations = "27.0.2"
         appcompat = "27.1.1"
-        retrofitVersion = "2.3.0"
+        retrofitVersion = "2.4.0"
         gsonVersion = "2.8.2"
         parcelerVersion = "1.1.10"
 

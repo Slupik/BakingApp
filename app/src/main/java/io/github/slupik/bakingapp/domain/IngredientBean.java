@@ -5,16 +5,21 @@
 
 package io.github.slupik.bakingapp.domain;
 
+import com.google.gson.annotations.SerializedName;
+
 public class IngredientBean {
-    private int quantity = -1;
+    @SerializedName("quantity")
+    private double quantity = -1;
+    @SerializedName("measure")
     private String measure = "";
+    @SerializedName("ingredient")
     private String ingredient = "";
 
-    public int getQuantity() {
+    public double getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(double quantity) {
         this.quantity = quantity;
     }
 

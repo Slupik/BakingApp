@@ -15,9 +15,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import io.github.slupik.bakingapp.R;
+import io.github.slupik.bakingapp.data.downloader.DatabaseDownloader;
 import io.github.slupik.bakingapp.domain.RecipeBean;
-import io.github.slupik.bakingapp.dummy.DummyContent;
+import io.github.slupik.bakingapp.view.recipes.dummy.DummyContent;
 
 /**
  * A fragment representing a list of Items.
@@ -26,6 +30,7 @@ import io.github.slupik.bakingapp.dummy.DummyContent;
  * interface.
  */
 public class RecipesFragment extends Fragment {
+    private static final boolean TEST_UX = false;
 
     private static final String ARG_COLUMN_COUNT = "column-count";
     private int mColumnCount = 1;
@@ -70,9 +75,27 @@ public class RecipesFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new RecipesRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+            final RecipesRecyclerViewAdapter adapter = new RecipesRecyclerViewAdapter(getStarterData(), mListener);
+            recyclerView.setAdapter(adapter);
+
+            if(!TEST_UX) {
+                new DatabaseDownloader(new DatabaseDownloader.DownloaderCallback() {
+                    @Override
+                    public void onDownload(List<RecipeBean> data) {
+                        adapter.setNewData(data);
+                    }
+                }).downloadData();
+            }
+
         }
         return view;
+    }
+
+    private List<RecipeBean> getStarterData() {
+        if(TEST_UX) {
+            return DummyContent.ITEMS;
+        }
+        return new ArrayList<>();
     }
 
 

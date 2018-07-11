@@ -28,7 +28,7 @@ import io.github.slupik.bakingapp.domain.RecipeBean;
  * {@link RecyclerView.Adapter} that can display a {@link RecipeBean} and makes a call to the
  * specified {@link RecipesFragment.RecipeListFragmentInterface}.
  */
-public class RecipesRecyclerViewAdapter extends RecyclerView.Adapter<RecipesRecyclerViewAdapter.ViewHolder> {
+class RecipesRecyclerViewAdapter extends RecyclerView.Adapter<RecipesRecyclerViewAdapter.ViewHolder> {
 
     private final List<RecipeBean> mValues;
     private final RecipesFragment.RecipeListFragmentInterface mListener;
@@ -36,6 +36,12 @@ public class RecipesRecyclerViewAdapter extends RecyclerView.Adapter<RecipesRecy
     public RecipesRecyclerViewAdapter(List<RecipeBean> items, RecipesFragment.RecipeListFragmentInterface listener) {
         mValues = items;
         mListener = listener;
+    }
+
+    public void setNewData(List<RecipeBean> data) {
+        mValues.clear();
+        mValues.addAll(data);
+        notifyDataSetChanged();
     }
 
     @Override
@@ -78,13 +84,14 @@ public class RecipesRecyclerViewAdapter extends RecyclerView.Adapter<RecipesRecy
             super(view);
             mView = view;
             ButterKnife.bind(this, view);
-            mImageContainer.setVisibility(View.GONE);
-            mPlaceholder.setVisibility(View.VISIBLE);
         }
 
         public void loadData(RecipeBean data) {
             mItem = data;
+            mImageContainer.setVisibility(View.GONE);
+            mPlaceholder.setVisibility(View.VISIBLE);
             mImage.setImageDrawable(null);
+
             loadImage(data.getImg());
             mName.setText(data.getName());
             mPlaceholder.setText(data.getName());

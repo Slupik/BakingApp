@@ -5,15 +5,23 @@
 
 package io.github.slupik.bakingapp.domain;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class RecipeBean {
+    @SerializedName("id")
     private int id = -1;
+    @SerializedName("name")
     private String name = "";
+    @SerializedName("image")
     private String img = "";
+    @SerializedName("servings")
     private int servings = -1;
+    @SerializedName("ingredients")
     private List<IngredientBean> ingredients = new ArrayList<>();
+    @SerializedName("steps")
     private List<StepBean> steps = new ArrayList<>();
 
     public int getId() {
