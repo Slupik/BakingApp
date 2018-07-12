@@ -57,9 +57,11 @@ public class StepFragment extends Fragment {
     public SimpleExoPlayerView videoView;
     private SimpleExoPlayer exoPlayer;
     private long lastTime = 0;
+    private long lastId = -1;
 
     private static final String ARG_STEP_DATA = "step-data";
     private static final String ARG_VIDEO_TIME = "video-time";
+    private static final String ARG_ID_OF_STEP_ON_VIDEO = "video-step-id";
 
     private StepBean actualStep;
     private OnFragmentInteractionListener mListener;
@@ -119,6 +121,9 @@ public class StepFragment extends Fragment {
 
     public void setStepData(@Nullable StepBean actualStep) {
         this.actualStep = actualStep;
+        if(exoPlayer!=null) {
+            exoPlayer.stop();
+        }
         if (actualStep != null) {
             fullDesc.setText(actualStep.getDescription());
             String filmURL = actualStep.getFilmURL();
@@ -201,7 +206,12 @@ public class StepFragment extends Fragment {
 
                 }
             });
-            exoPlayer.seekTo(lastTime);
+            if(actualStep.getId()==lastId) {
+                exoPlayer.seekTo(lastTime);
+            } else {
+                exoPlayer.seekTo(0);
+            }
+            lastTime = 0;
             exoPlayer.setPlayWhenReady(true);//replay from start
         }catch (Exception e){
             Log.e("StepFragment"," exoplayer error "+ e.toString());
@@ -231,15 +241,14 @@ public class StepFragment extends Fragment {
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putLong(ARG_VIDEO_TIME, lastTime);
+        outState.putInt(ARG_ID_OF_STEP_ON_VIDEO, actualStep.getId());
     }
 
     @Override
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
         if (savedInstanceState != null) {
+            lastId = savedInstanceState.getInt(ARG_ID_OF_STEP_ON_VIDEO, -1);
             lastTime = savedInstanceState.getLong(ARG_VIDEO_TIME, 0);
-            if(exoPlayer!=null) {
-                exoPlayer.seekTo(lastTime);
-            }
         }
         super.onViewStateRestored(savedInstanceState);
     }
