@@ -125,12 +125,16 @@ public class StepFragment extends Fragment {
                 loadVideoURL(filmURL);
             } else {
                 videoView.setVisibility(View.GONE);
-                exoPlayer.stop();
+                if(exoPlayer!=null) {
+                    exoPlayer.stop();
+                }
             }
         } else {
             fullDesc.setText("");
             videoView.setVisibility(View.GONE);
-            exoPlayer.stop();
+            if(exoPlayer!=null) {
+                exoPlayer.stop();
+            }
         }
     }
 

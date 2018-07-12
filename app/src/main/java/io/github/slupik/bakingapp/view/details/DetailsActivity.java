@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 
@@ -43,11 +44,19 @@ public class DetailsActivity extends AppCompatActivity implements StepFragment.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
+        hideActionBar();
         ButterKnife.bind(this);
         readExtraData();
         adjustAccessibilityOfButtons();
         setupFragmentVariable();
         stepFragment.setStepData(getActualStep());
+    }
+
+    private void hideActionBar() {
+        ActionBar bar = getSupportActionBar();
+        if(bar!=null) {
+            bar.hide();
+        }
     }
 
     private void readExtraData() {
@@ -113,6 +122,25 @@ public class DetailsActivity extends AppCompatActivity implements StepFragment.O
         } else {
             button.setTextColor(getResources().getColor(R.color.dimgray));
         }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putString(ARG_STEP_LIST, new Gson().toJson(data));
+        outState.putInt(ARG_STEP_NUMBER, actualStepIndex);
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        String stepList = savedInstanceState.getString(ARG_STEP_LIST);
+        Type collectionType = new TypeToken<ArrayList<StepBean>>(){}.getType();
+        data = new Gson().fromJson(stepList, collectionType);
+
+        actualStepIndex = savedInstanceState.getInt(ARG_STEP_NUMBER, 0);
+        stepFragment.setStepData(getActualStep());
+        adjustAccessibilityOfButtons();
     }
 
     @Override
