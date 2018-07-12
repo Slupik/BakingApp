@@ -38,7 +38,6 @@ public class DatabaseDownloader implements Callback<List<RecipeBean>> {
 
     @Override
     public void onResponse(Call<List<RecipeBean>> call, Response<List<RecipeBean>> response) {
-        Log.e("Retrofit", "IT IS OK");
         mCallback.onDownload(response.body());
     }
 
