@@ -130,7 +130,7 @@ public class RecipeInfoRecyclerViewAdapter extends RecyclerView.Adapter<RecipeIn
 
         public void loadData(StepBean data){
             step = data;
-            stepDesc.setText(data.getShortzDescription());
+            stepDesc.setText(data.getShortDescription());
         }
 
         public void loadData(List<IngredientBean> data){

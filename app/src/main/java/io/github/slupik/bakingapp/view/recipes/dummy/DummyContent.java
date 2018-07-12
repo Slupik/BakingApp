@@ -51,7 +51,6 @@ public class DummyContent {
         dummy.setName(Randomizer.randomStandardString(10));
         dummy.setId(position);
         if(Randomizer.randomInteger(0, 1)==0){
-            Log.d("DUMMY ITEM", "Set img!!! for id "+dummy.getId());
             dummy.setImg("https://cdn.cnn.com/cnnnext/dam/assets/171027052520-processed-foods-exlarge-tease.jpg");
         } else {
             dummy.setImg("");

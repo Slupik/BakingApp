@@ -5,13 +5,15 @@
 
 package io.github.slupik.bakingapp.domain;
 
+import android.support.annotation.NonNull;
+
 import com.google.gson.annotations.SerializedName;
 
 public class StepBean {
     @SerializedName("id")
     private int id = -1;
     @SerializedName("shortDescription")
-    private String shortzDescription = "";
+    private String shortDescription = "";
     @SerializedName("description")
     private String description = "";
     @SerializedName("videoURL")
@@ -27,12 +29,12 @@ public class StepBean {
         this.id = id;
     }
 
-    public String getShortzDescription() {
-        return shortzDescription;
+    public String getShortDescription() {
+        return shortDescription;
     }
 
-    public void setShortzDescription(String shortzDescription) {
-        this.shortzDescription = shortzDescription;
+    public void setShortDescription(String shortzDescription) {
+        this.shortDescription = shortzDescription;
     }
 
     public String getDescription() {
@@ -59,4 +61,13 @@ public class StepBean {
         this.thumbnailURL = thumbnailURL;
     }
 
+    @NonNull
+    public String getFilmURL(){
+        if(getVideoURL()!=null && getVideoURL().length()>0){
+            return getVideoURL();
+        } else if(getThumbnailURL()!=null && getThumbnailURL().endsWith(".mp4")){
+            return getThumbnailURL();
+        }
+        return "";
+    }
 }

@@ -10,10 +10,14 @@
              android:layout_height="match_parent"
              tools:context=".view.details.PlayerFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <!--<SurfaceView-->
+        <!--android:id="@+id/video_space"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"/>-->
+
+    <com.google.android.exoplayer2.ui.SimpleExoPlayerView
+        android:id="@+id/video_space"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment"/>
+        android:layout_height="300dp"/>
 
 </FrameLayout>
