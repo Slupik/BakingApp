@@ -36,22 +36,24 @@
         app:layout_constraintTop_toTopOf="@+id/guideline">
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/previous_step_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/previous_step"
+            android:textAllCaps="true"
+            style="@android:style/Widget.Holo.Button.Borderless"
+            android:textColor="@color/darkDimgray"/>
+
+        <Button
+            android:id="@+id/next_step_btn"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_margin="0dp"
             android:layout_weight="1"
             android:padding="0dp"
-            android:text="Button"
-            style="@android:style/Widget.Holo.Button.Borderless"
-            android:textColor="@color/darkDimgray"/>
-
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="Button"
+            android:text="@string/next_step"
+            android:textAllCaps="true"
             style="@android:style/Widget.Holo.Button.Borderless"
             android:textColor="@color/darkDimgray"/>
     </LinearLayout>

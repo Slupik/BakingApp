@@ -74,7 +74,7 @@ public class RecipeInfoRecyclerViewAdapter extends RecyclerView.Adapter<RecipeIn
                     @Override
                     public void onClick(View v) {
                         if (null != mListener) {
-                            mListener.openActivityForStep(bean);
+                            mListener.openActivityForStep(data.getSteps(), bean.getId());
                         }
                     }
                 });

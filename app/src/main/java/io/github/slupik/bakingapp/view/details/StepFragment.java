@@ -8,12 +8,14 @@ package io.github.slupik.bakingapp.view.details;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import io.github.slupik.bakingapp.R;
+import io.github.slupik.bakingapp.domain.StepBean;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -95,6 +97,10 @@ public class StepFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    public void setStepData(@Nullable StepBean actualStep) {
+        //TODO Fill this up
     }
 
     /**

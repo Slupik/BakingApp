@@ -12,6 +12,8 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.google.gson.Gson;
 
+import java.util.List;
+
 import io.github.slupik.bakingapp.R;
 import io.github.slupik.bakingapp.domain.RecipeBean;
 import io.github.slupik.bakingapp.domain.StepBean;
@@ -47,9 +49,10 @@ public class RecipeInfoActivity extends AppCompatActivity implements RecipeInfoF
     }
 
     @Override
-    public void openActivityForStep(StepBean item) {
+    public void openActivityForStep(List<StepBean> steps, int stepId) {
         Intent intent = new Intent(this, DetailsActivity.class);
-        intent.putExtra(DetailsActivity.EXTRA_DATA, new Gson().toJson(item));
+        intent.putExtra(DetailsActivity.ARG_STEP_LIST, new Gson().toJson(steps));
+        intent.putExtra(DetailsActivity.ARG_STEP_NUMBER, stepId);
         startActivity(intent);
     }
 }
