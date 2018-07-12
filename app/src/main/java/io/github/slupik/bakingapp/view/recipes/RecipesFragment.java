@@ -7,6 +7,7 @@ package io.github.slupik.bakingapp.view.recipes;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -30,7 +31,7 @@ import io.github.slupik.bakingapp.view.recipes.dummy.DummyContent;
  * interface.
  */
 public class RecipesFragment extends Fragment {
-    private static final boolean TEST_UX = true;
+    private static final boolean TEST_UX = false;
 
     private static final String ARG_COLUMN_COUNT = "column-count";
     private int mColumnCount = 1;
@@ -74,7 +75,7 @@ public class RecipesFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_recipes_list, container, false);
 
