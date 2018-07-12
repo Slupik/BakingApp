@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2018. by Sebastian Witasik
+  ~ All rights reserved. No part of this application may be reproduced or be part of other software, without the prior written permission of the publisher. For permission requests, write to the author(WitasikSebastian@gmail.com).
+  -->
+
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:configure="io.github.slupik.bakingapp.view.widget.recipe.RecipeWidgetConfigureActivity"
+                    android:initialKeyguardLayout="@layout/widget_recipe"
+                    android:initialLayout="@layout/widget_recipe"
+                    android:minHeight="80dp"
+                    android:minWidth="120dp"
+                    android:previewImage="@drawable/example_appwidget_preview"
+                    android:resizeMode="horizontal|vertical"
+                    android:updatePeriodMillis="86400000"
+                    android:widgetCategory="home_screen">
+</appwidget-provider>
