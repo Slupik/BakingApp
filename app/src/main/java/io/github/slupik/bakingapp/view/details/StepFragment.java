@@ -56,8 +56,10 @@ public class StepFragment extends Fragment {
     @BindView(R.id.video_space)
     public SimpleExoPlayerView videoView;
     private SimpleExoPlayer exoPlayer;
+    private long lastTime = 0;
 
     private static final String ARG_STEP_DATA = "step-data";
+    private static final String ARG_VIDEO_TIME = "video-time";
 
     private StepBean actualStep;
     private OnFragmentInteractionListener mListener;
@@ -199,11 +201,52 @@ public class StepFragment extends Fragment {
 
                 }
             });
-            exoPlayer.seekTo(0);
+            exoPlayer.seekTo(lastTime);
             exoPlayer.setPlayWhenReady(true);//replay from start
         }catch (Exception e){
             Log.e("StepFragment"," exoplayer error "+ e.toString());
         }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        lastTime = getPosition();
+    }
+
+    public long getPosition() {
+        if (exoPlayer != null)
+            return exoPlayer.getCurrentPosition();
+        else
+            return 0;
+    }
+
+    @Override
+    public void onDestroy() {
+        exoPlayer.stop();
+        super.onDestroy();
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putLong(ARG_VIDEO_TIME, lastTime);
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        if (savedInstanceState != null) {
+            lastTime = savedInstanceState.getLong(ARG_VIDEO_TIME, 0);
+            if(exoPlayer!=null) {
+                exoPlayer.seekTo(lastTime);
+            }
+        }
+        super.onViewStateRestored(savedInstanceState);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
     }
 
     /**
