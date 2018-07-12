@@ -48,6 +48,7 @@ allprojects {
         butterKnife = "8.8.1"
         picassoVersion = "2.5.2"
         constraintLayout = "1.1.2"
+        exoplayerVersion = "r2.2.0"
         supportAnnotations = "27.0.2"
         appcompat = "27.1.1"
         retrofitVersion = "2.4.0"

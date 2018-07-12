@@ -38,6 +38,8 @@ dependencies {
     implementation "com.squareup.picasso:picasso:$picassoVersion"
     implementation "com.android.support.constraint:constraint-layout:$constraintLayout"
 
+    implementation "com.google.android.exoplayer:exoplayer:$exoplayerVersion"
+
 //    Android compatibility stuff
     implementation("com.android.support:appcompat-v7:$appcompat")
 
