@@ -116,6 +116,6 @@ public class RecipeInfoFragment extends Fragment {
      */
     public interface RecipeInfoFragmentInteractionInterface {
         RecipeBean getData();
-        void openActivityForStep(List<StepBean> steps, int stepId);
+        void openInfoForStep(List<StepBean> steps, int stepId);
     }
 }

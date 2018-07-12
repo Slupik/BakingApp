@@ -74,7 +74,7 @@ public class RecipeInfoRecyclerViewAdapter extends RecyclerView.Adapter<RecipeIn
                     @Override
                     public void onClick(View v) {
                         if (null != mListener) {
-                            mListener.openActivityForStep(data.getSteps(), bean.getId());
+                            mListener.openInfoForStep(data.getSteps(), bean.getId());
                         }
                     }
                 });
@@ -119,6 +119,10 @@ public class RecipeInfoRecyclerViewAdapter extends RecyclerView.Adapter<RecipeIn
         @Nullable
         TextView stepDesc;
 
+        @BindView(R.id.recipe_step_full_desc)
+        @Nullable
+        TextView fullStepDesc;
+
         private List<IngredientBean> ingredients;
         private StepBean step;
 
@@ -131,6 +135,9 @@ public class RecipeInfoRecyclerViewAdapter extends RecyclerView.Adapter<RecipeIn
         public void loadData(StepBean data){
             step = data;
             stepDesc.setText(data.getShortDescription());
+            if(fullStepDesc!=null) {
+                fullStepDesc.setText(data.getDescription());
+            }
         }
 
         public void loadData(List<IngredientBean> data){

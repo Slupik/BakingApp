@@ -6,6 +6,7 @@
 package io.github.slupik.bakingapp.view.recipe;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
@@ -18,8 +19,9 @@ import io.github.slupik.bakingapp.R;
 import io.github.slupik.bakingapp.domain.RecipeBean;
 import io.github.slupik.bakingapp.domain.StepBean;
 import io.github.slupik.bakingapp.view.details.DetailsActivity;
+import io.github.slupik.bakingapp.view.details.StepFragment;
 
-public class RecipeInfoActivity extends AppCompatActivity implements RecipeInfoFragment.RecipeInfoFragmentInteractionInterface {
+public class RecipeInfoActivity extends AppCompatActivity implements RecipeInfoFragment.RecipeInfoFragmentInteractionInterface, StepFragment.OnFragmentInteractionListener {
     public static final String ARG_RECIPE_DATA = "recipe-data";
     private RecipeBean data;
 
@@ -49,10 +51,25 @@ public class RecipeInfoActivity extends AppCompatActivity implements RecipeInfoF
     }
 
     @Override
-    public void openActivityForStep(List<StepBean> steps, int stepId) {
-        Intent intent = new Intent(this, DetailsActivity.class);
-        intent.putExtra(DetailsActivity.ARG_STEP_LIST, new Gson().toJson(steps));
-        intent.putExtra(DetailsActivity.ARG_STEP_NUMBER, stepId);
-        startActivity(intent);
+    public void openInfoForStep(List<StepBean> steps, int stepId) {
+        StepFragment fragment = getStepFragment();
+        if(fragment==null) {
+            Intent intent = new Intent(this, DetailsActivity.class);
+            intent.putExtra(DetailsActivity.ARG_STEP_LIST, new Gson().toJson(steps));
+            intent.putExtra(DetailsActivity.ARG_STEP_NUMBER, stepId);
+            startActivity(intent);
+        } else {
+            fragment.setStepData(steps.get(stepId));
+        }
+    }
+
+    private StepFragment getStepFragment(){
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        return (StepFragment)fragmentManager.findFragmentById(R.id.step_fragment);
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 }
