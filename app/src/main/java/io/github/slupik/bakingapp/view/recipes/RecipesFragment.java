@@ -30,11 +30,12 @@ import io.github.slupik.bakingapp.view.recipes.dummy.DummyContent;
  * interface.
  */
 public class RecipesFragment extends Fragment {
-    private static final boolean TEST_UX = false;
+    private static final boolean TEST_UX = true;
 
     private static final String ARG_COLUMN_COUNT = "column-count";
     private int mColumnCount = 1;
     private RecipeListFragmentInterface mListener;
+    private RecyclerView recyclerView;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -61,6 +62,17 @@ public class RecipesFragment extends Fragment {
         }
     }
 
+    public void setColumnCount(int columnCount) {
+        if(columnCount==mColumnCount) return;
+
+        mColumnCount = columnCount;
+        if (mColumnCount <= 1) {
+            recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
+        } else {
+            recyclerView.setLayoutManager(new GridLayoutManager(recyclerView.getContext(), mColumnCount));
+        }
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -69,7 +81,7 @@ public class RecipesFragment extends Fragment {
         // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
+            recyclerView = (RecyclerView) view;
             if (mColumnCount <= 1) {
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
             } else {
