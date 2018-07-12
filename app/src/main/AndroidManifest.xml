@@ -2,8 +2,7 @@
 <!--
   ~ Copyright (c) 2018. by Sebastian Witasik
   ~ All rights reserved. No part of this application may be reproduced or be part of other software, without the prior written permission of the publisher. For permission requests, write to the author(WitasikSebastian@gmail.com).
-  -->
-
+-->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="io.github.slupik.bakingapp">
 
@@ -22,6 +21,8 @@
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+        <activity android:name=".view.recipe.RecipeInfoActivity">
         </activity>
     </application>
 

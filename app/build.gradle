@@ -30,6 +30,7 @@ dependencies {
     implementation "com.jakewharton:butterknife:$butterKnife"
     implementation 'com.android.support:support-v4:27.1.1'
     implementation 'com.android.support:recyclerview-v7:27.1.1'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     annotationProcessor "com.jakewharton:butterknife-compiler:$butterKnife"
     implementation "com.android.support:recyclerview-v7:$appcompat"
     implementation "com.android.support:design:$appcompat"

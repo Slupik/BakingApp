@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2018. by Sebastian Witasik
+  ~ All rights reserved. No part of this application may be reproduced or be part of other software, without the prior written permission of the publisher. For permission requests, write to the author(WitasikSebastian@gmail.com).
+  -->
+
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
+          android:id="@+id/recipe_step_desc"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="2dp"
+          android:layout_marginTop="2dp"
+          android:background="@android:drawable/dialog_holo_light_frame"
+          android:padding="24dp"
+          android:textAppearance="?attr/textAppearanceListItem"
+          tools:text="Press the crust into baking form.">
+</TextView>
