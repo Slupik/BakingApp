@@ -99,7 +99,7 @@ public class DetailsActivity extends AppCompatActivity implements StepFragment.O
         } else {
             setButtonEnabled(btnPrevious, true);
         }
-        if(actualStepIndex>=data.size()) {
+        if(actualStepIndex>=data.size()-1) {
             setButtonEnabled(btnNext, false);
         } else {
             setButtonEnabled(btnNext, true);

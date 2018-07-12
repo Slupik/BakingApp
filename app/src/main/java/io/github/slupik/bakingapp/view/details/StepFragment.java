@@ -49,7 +49,7 @@ import io.github.slupik.bakingapp.domain.StepBean;
  * Use the {@link StepFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class StepFragment extends Fragment implements PlayerFragment.OnFragmentInteractionListener {
+public class StepFragment extends Fragment {
 
     @BindView(R.id.step_full_description_tv)
     public TextView fullDesc;
@@ -200,11 +200,6 @@ public class StepFragment extends Fragment implements PlayerFragment.OnFragmentI
         }catch (Exception e){
             Log.e("StepFragment"," exoplayer error "+ e.toString());
         }
-    }
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
     }
 
     /**
