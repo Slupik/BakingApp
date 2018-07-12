@@ -5,6 +5,7 @@
 
 package io.github.slupik.bakingapp.view.recipe;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +15,7 @@ import com.google.gson.Gson;
 import io.github.slupik.bakingapp.R;
 import io.github.slupik.bakingapp.domain.RecipeBean;
 import io.github.slupik.bakingapp.domain.StepBean;
+import io.github.slupik.bakingapp.view.details.DetailsActivity;
 
 public class RecipeInfoActivity extends AppCompatActivity implements RecipeInfoFragment.RecipeInfoFragmentInteractionInterface {
     public static final String ARG_RECIPE_DATA = "recipe-data";
@@ -46,6 +48,8 @@ public class RecipeInfoActivity extends AppCompatActivity implements RecipeInfoF
 
     @Override
     public void openActivityForStep(StepBean item) {
-        //TODO fill this
+        Intent intent = new Intent(this, DetailsActivity.class);
+        intent.putExtra(DetailsActivity.EXTRA_DATA, new Gson().toJson(item));
+        startActivity(intent);
     }
 }
