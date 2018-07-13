@@ -48,6 +48,7 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
 
+    implementation "com.android.support.test.espresso:espresso-idling-resource:$espressoCore"
     /*
         TESTS
      */
@@ -58,6 +59,9 @@ dependencies {
     androidTestImplementation "com.android.support.test:runner:$supportTestRunner"
     androidTestImplementation "com.android.support.test:rules:$supportTestRunner"
     androidTestImplementation "com.android.support.test.espresso:espresso-core:$espressoCore"
+    androidTestImplementation ("com.android.support.test.espresso:espresso-idling-resource:$espressoCore") {
+        exclude module: 'support-annotations'
+    }
     androidTestImplementation "android.arch.core:core-testing:$archCore"
     testImplementation "android.arch.core:core-testing:$archCore"
     testImplementation "org.mockito:mockito-core:$mockito"

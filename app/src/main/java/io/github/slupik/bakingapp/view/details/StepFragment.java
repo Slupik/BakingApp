@@ -265,7 +265,9 @@ public class StepFragment extends Fragment {
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putLong(ARG_VIDEO_TIME, lastTime);
-        outState.putInt(ARG_ID_OF_STEP_ON_VIDEO, actualStep.getId());
+        if(actualStep!=null) {
+            outState.putInt(ARG_ID_OF_STEP_ON_VIDEO, actualStep.getId());
+        }
     }
 
     @Override

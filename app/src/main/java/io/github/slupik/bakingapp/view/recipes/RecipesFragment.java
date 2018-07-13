@@ -8,6 +8,8 @@ package io.github.slupik.bakingapp.view.recipes;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.test.espresso.IdlingResource;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -23,6 +25,7 @@ import io.github.slupik.bakingapp.R;
 import io.github.slupik.bakingapp.data.downloader.DatabaseDownloader;
 import io.github.slupik.bakingapp.domain.RecipeBean;
 import io.github.slupik.bakingapp.view.recipes.dummy.DummyContent;
+import io.github.slupik.bakingapp.view.utils.SimpleIdlingResource;
 
 /**
  * A fragment representing a list of Items.
@@ -31,6 +34,9 @@ import io.github.slupik.bakingapp.view.recipes.dummy.DummyContent;
  * interface.
  */
 public class RecipesFragment extends Fragment {
+
+    @Nullable
+    private SimpleIdlingResource mIdlingResource;
     private static final boolean TEST_UX = false;
 
     private static final String ARG_COLUMN_COUNT = "column-count";
@@ -92,10 +98,16 @@ public class RecipesFragment extends Fragment {
             recyclerView.setAdapter(adapter);
 
             if(!TEST_UX) {
+                if(mIdlingResource!=null) {
+                    mIdlingResource.setIdleState(false);
+                }
                 new DatabaseDownloader(new DatabaseDownloader.DownloaderCallback() {
                     @Override
                     public void onDownload(List<RecipeBean> data) {
                         adapter.setNewData(data);
+                        if(mIdlingResource!=null) {
+                            mIdlingResource.setIdleState(true);
+                        }
                     }
                 }).downloadData();
             }
@@ -127,6 +139,10 @@ public class RecipesFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    public IdlingResource getIdlingResource() {
+        return mIdlingResource;
     }
 
     /**

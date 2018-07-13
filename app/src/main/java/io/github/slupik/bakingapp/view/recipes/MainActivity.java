@@ -7,6 +7,7 @@ package io.github.slupik.bakingapp.view.recipes;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.test.espresso.IdlingResource;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
@@ -45,5 +46,11 @@ public class MainActivity extends AppCompatActivity implements RecipesFragment.R
         Intent intent = new Intent(this, RecipeInfoActivity.class);
         intent.putExtra(RecipeInfoActivity.ARG_RECIPE_DATA, new Gson().toJson(item));
         startActivity(intent);
+    }
+
+    public IdlingResource getIdlingResource() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        RecipesFragment fragment = (RecipesFragment)fragmentManager.findFragmentById(R.id.master_list_fragment);
+        return fragment.getIdlingResource();
     }
 }
