@@ -57,10 +57,13 @@ allprojects {
 
         //tests
         junit = "4.12"
-        supportTestRunner = "1.0.1"
-        espressoCore = "3.0.1"
+        supportTestRunner = "1.0.2"
+        espressoCore = "3.0.2"
+        espressoContrib = "2.2.2"
         mockitoCore = "1.9.5"
         assertJCore = "1.7.1"
+        archCore = "1.1.1"
+        mockito = "2.15.0"
     }
 }
 
