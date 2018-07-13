@@ -62,7 +62,7 @@ allprojects {
         espressoContrib = "2.2.2"
         mockitoCore = "1.9.5"
         assertJCore = "1.7.1"
-        archCore = "1.1.1"
+        archCore = "1.1.0"
         mockito = "2.15.0"
     }
 }
