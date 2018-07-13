@@ -5,6 +5,7 @@
 
 package io.github.slupik.bakingapp.view.recipe;
 
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,12 +16,9 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.github.slupik.bakingapp.R;
-import io.github.slupik.bakingapp.domain.IngredientBean;
 import io.github.slupik.bakingapp.domain.RecipeBean;
 import io.github.slupik.bakingapp.domain.StepBean;
 import io.github.slupik.bakingapp.view.recipe.RecipeInfoFragment.RecipeInfoFragmentInteractionInterface;
@@ -36,12 +34,13 @@ public class RecipeInfoRecyclerViewAdapter extends RecyclerView.Adapter<RecipeIn
     private RecipeBean data = new RecipeBean();
     private final RecipeInfoFragment.RecipeInfoFragmentInteractionInterface mListener;
 
-    public RecipeInfoRecyclerViewAdapter(RecipeInfoFragmentInteractionInterface listener) {
+    RecipeInfoRecyclerViewAdapter(RecipeInfoFragmentInteractionInterface listener) {
         mListener = listener;
     }
 
+    @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         int layout;
         switch (viewType) {
             case VIEW_TYPE_INGREDIENTS:
@@ -60,12 +59,10 @@ public class RecipeInfoRecyclerViewAdapter extends RecyclerView.Adapter<RecipeIn
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         int viewType = getItemViewType(position);
         switch (viewType) {
             case VIEW_TYPE_INGREDIENTS:
-                holder.loadData(data.getIngredients());
-
                 holder.mView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -132,7 +129,6 @@ public class RecipeInfoRecyclerViewAdapter extends RecyclerView.Adapter<RecipeIn
         @Nullable
         TextView fullStepDesc;
 
-        private List<IngredientBean> ingredients;
         private StepBean step;
 
         public ViewHolder(View view) {
@@ -149,27 +145,8 @@ public class RecipeInfoRecyclerViewAdapter extends RecyclerView.Adapter<RecipeIn
             }
         }
 
-        public void loadData(List<IngredientBean> data){
-            if (ingredientsContainer != null && data != null) {
-                ingredients = data;
-//                ingredientsContainer.setAdapter(
-//                        new IngredientListViewAdapter(
-//                                ingredientsContainer.getContext(),
-//                                data)
-//                );
-//                for(IngredientBean bean:data){
-                    //TODO repair this code - views are adding but nothing is visible
-//                    View view = new IngredientElement(mView.getContext()).populate(bean);
-//                    ingredientsContainer.addView(view);
-//                }
-            }
-        }
-
         @Override
         public String toString() {
-            if(ingredients!=null) {
-                return new Gson().toJson(ingredients);
-            }
             if(step!=null) {
                 return new Gson().toJson(step);
             }
