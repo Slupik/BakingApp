@@ -24,14 +24,17 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.github.slupik.bakingapp.R;
+import io.github.slupik.bakingapp.domain.IngredientBean;
 import io.github.slupik.bakingapp.domain.StepBean;
 
 public class DetailsActivity extends AppCompatActivity implements StepFragment.OnFragmentInteractionListener {
 
     public static final String ARG_STEP_LIST = "step_list";
     public static final String ARG_STEP_NUMBER = "step_number";
+    public static final String ARG_INGREDIENT_LIST = "ingredient_list";
 
-    private List<StepBean> data = new ArrayList<>();
+    private List<IngredientBean> ingredientsData = new ArrayList<>();
+    private List<StepBean> stepsData = new ArrayList<>();
     private int actualStepIndex = 0;
     private StepFragment stepFragment;
 
@@ -46,10 +49,9 @@ public class DetailsActivity extends AppCompatActivity implements StepFragment.O
         setContentView(R.layout.activity_details);
         hideActionBar();
         ButterKnife.bind(this);
+        setupFragmentVariable();
         readExtraData();
         adjustAccessibilityOfButtons();
-        setupFragmentVariable();
-        stepFragment.setStepData(getActualStep());
     }
 
     private void hideActionBar() {
@@ -63,10 +65,19 @@ public class DetailsActivity extends AppCompatActivity implements StepFragment.O
         Intent intent = getIntent();
         if(intent!=null) {
             String stepList = intent.getStringExtra(ARG_STEP_LIST);
-            Type collectionType = new TypeToken<ArrayList<StepBean>>(){}.getType();
-            data = new Gson().fromJson(stepList, collectionType);
+            if(stepList!=null){
+                Type collectionType = new TypeToken<ArrayList<StepBean>>(){}.getType();
+                stepsData = new Gson().fromJson(stepList, collectionType);
 
-            actualStepIndex = intent.getIntExtra(ARG_STEP_NUMBER, 0);
+                actualStepIndex = intent.getIntExtra(ARG_STEP_NUMBER, 0);
+                stepFragment.setStepData(getActualStep());
+            } else {
+                String ingredientList = intent.getStringExtra(ARG_INGREDIENT_LIST);
+                Type collectionType = new TypeToken<ArrayList<IngredientBean>>(){}.getType();
+                ingredientsData = new Gson().fromJson(ingredientList, collectionType);
+
+                stepFragment.setIngredientsData(ingredientsData);
+            }
         }
     }
 
@@ -81,8 +92,8 @@ public class DetailsActivity extends AppCompatActivity implements StepFragment.O
     }
 
     private StepBean getActualStep() {
-        if(data!=null && data.size()>actualStepIndex) {
-            return data.get(actualStepIndex);
+        if(stepsData !=null && stepsData.size()>actualStepIndex) {
+            return stepsData.get(actualStepIndex);
         } else {
             return null;
         }
@@ -108,7 +119,7 @@ public class DetailsActivity extends AppCompatActivity implements StepFragment.O
         } else {
             setButtonEnabled(btnPrevious, true);
         }
-        if(actualStepIndex>=data.size()-1) {
+        if(actualStepIndex>= stepsData.size()-1) {
             setButtonEnabled(btnNext, false);
         } else {
             setButtonEnabled(btnNext, true);
@@ -126,7 +137,7 @@ public class DetailsActivity extends AppCompatActivity implements StepFragment.O
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        outState.putString(ARG_STEP_LIST, new Gson().toJson(data));
+        outState.putString(ARG_STEP_LIST, new Gson().toJson(stepsData));
         outState.putInt(ARG_STEP_NUMBER, actualStepIndex);
         super.onSaveInstanceState(outState);
     }
@@ -136,7 +147,7 @@ public class DetailsActivity extends AppCompatActivity implements StepFragment.O
         super.onRestoreInstanceState(savedInstanceState);
         String stepList = savedInstanceState.getString(ARG_STEP_LIST);
         Type collectionType = new TypeToken<ArrayList<StepBean>>(){}.getType();
-        data = new Gson().fromJson(stepList, collectionType);
+        stepsData = new Gson().fromJson(stepList, collectionType);
 
         actualStepIndex = savedInstanceState.getInt(ARG_STEP_NUMBER, 0);
         stepFragment.setStepData(getActualStep());

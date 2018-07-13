@@ -15,6 +15,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.google.android.exoplayer2.DefaultLoadControl;
@@ -36,10 +38,14 @@ import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.google.gson.Gson;
 
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.github.slupik.bakingapp.R;
+import io.github.slupik.bakingapp.domain.IngredientBean;
 import io.github.slupik.bakingapp.domain.StepBean;
+import io.github.slupik.bakingapp.view.recipe.IngredientListViewAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -51,6 +57,11 @@ import io.github.slupik.bakingapp.domain.StepBean;
  */
 public class StepFragment extends Fragment {
 
+    @BindView(R.id.ingredients_container)
+    ListView ingredientsList;
+
+    @BindView(R.id.step_info_container)
+    ScrollView stepInfoContainer;
     @BindView(R.id.step_full_description_tv)
     public TextView fullDesc;
     @BindView(R.id.video_space)
@@ -119,8 +130,19 @@ public class StepFragment extends Fragment {
         mListener = null;
     }
 
+    public void setIngredientsData(List<IngredientBean> data) {
+        actualStep = null;
+        stepInfoContainer.setVisibility(View.GONE);
+        ingredientsList.setVisibility(View.VISIBLE);
+        if(ingredientsList!=null && data!=null) {
+            ingredientsList.setAdapter(new IngredientListViewAdapter(ingredientsList.getContext(), data));
+        }
+    }
+
     public void setStepData(@Nullable StepBean actualStep) {
         this.actualStep = actualStep;
+        ingredientsList.setVisibility(View.GONE);
+        stepInfoContainer.setVisibility(View.VISIBLE);
         if(exoPlayer!=null) {
             exoPlayer.stop();
         }
@@ -233,7 +255,9 @@ public class StepFragment extends Fragment {
 
     @Override
     public void onDestroy() {
-        exoPlayer.stop();
+        if(exoPlayer!=null) {
+            exoPlayer.stop();
+        }
         super.onDestroy();
     }
 

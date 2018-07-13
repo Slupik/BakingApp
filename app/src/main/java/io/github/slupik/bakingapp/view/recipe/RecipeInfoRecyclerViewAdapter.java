@@ -10,7 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -65,6 +65,15 @@ public class RecipeInfoRecyclerViewAdapter extends RecyclerView.Adapter<RecipeIn
         switch (viewType) {
             case VIEW_TYPE_INGREDIENTS:
                 holder.loadData(data.getIngredients());
+
+                holder.mView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (null != mListener) {
+                            mListener.openInfoForIngredients(data.getIngredients());
+                        }
+                    }
+                });
                 break;
             case VIEW_TYPE_STEP:
                 final StepBean bean = getAppropriateStep(position);
@@ -113,7 +122,7 @@ public class RecipeInfoRecyclerViewAdapter extends RecyclerView.Adapter<RecipeIn
 
         @BindView(R.id.ingredients_container)
         @Nullable
-        LinearLayout ingredientsContainer;
+        ListView ingredientsContainer;
 
         @BindView(R.id.recipe_step_desc)
         @Nullable
@@ -143,11 +152,16 @@ public class RecipeInfoRecyclerViewAdapter extends RecyclerView.Adapter<RecipeIn
         public void loadData(List<IngredientBean> data){
             if (ingredientsContainer != null && data != null) {
                 ingredients = data;
-                for(IngredientBean bean:data){
+//                ingredientsContainer.setAdapter(
+//                        new IngredientListViewAdapter(
+//                                ingredientsContainer.getContext(),
+//                                data)
+//                );
+//                for(IngredientBean bean:data){
                     //TODO repair this code - views are adding but nothing is visible
-                    View view = new IngredientElement(mView.getContext()).populate(bean);
-                    ingredientsContainer.addView(view);
-                }
+//                    View view = new IngredientElement(mView.getContext()).populate(bean);
+//                    ingredientsContainer.addView(view);
+//                }
             }
         }
 

@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import io.github.slupik.bakingapp.R;
+import io.github.slupik.bakingapp.domain.IngredientBean;
 import io.github.slupik.bakingapp.domain.RecipeBean;
 import io.github.slupik.bakingapp.domain.StepBean;
 
@@ -117,5 +118,6 @@ public class RecipeInfoFragment extends Fragment {
     public interface RecipeInfoFragmentInteractionInterface {
         RecipeBean getData();
         void openInfoForStep(List<StepBean> steps, int stepId);
+        void openInfoForIngredients(List<IngredientBean> ingredients);
     }
 }

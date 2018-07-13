@@ -16,6 +16,7 @@ import com.google.gson.Gson;
 import java.util.List;
 
 import io.github.slupik.bakingapp.R;
+import io.github.slupik.bakingapp.domain.IngredientBean;
 import io.github.slupik.bakingapp.domain.RecipeBean;
 import io.github.slupik.bakingapp.domain.StepBean;
 import io.github.slupik.bakingapp.view.details.DetailsActivity;
@@ -60,6 +61,18 @@ public class RecipeInfoActivity extends AppCompatActivity implements RecipeInfoF
             startActivity(intent);
         } else {
             fragment.setStepData(steps.get(stepId));
+        }
+    }
+
+    @Override
+    public void openInfoForIngredients(List<IngredientBean> ingredients) {
+        StepFragment fragment = getStepFragment();
+        if(fragment==null) {
+            Intent intent = new Intent(this, DetailsActivity.class);
+            intent.putExtra(DetailsActivity.ARG_INGREDIENT_LIST, new Gson().toJson(ingredients));
+            startActivity(intent);
+        } else {
+            fragment.setIngredientsData(ingredients);
         }
     }
 
