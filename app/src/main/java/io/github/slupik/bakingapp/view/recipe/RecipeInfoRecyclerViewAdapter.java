@@ -11,10 +11,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -125,6 +127,10 @@ public class RecipeInfoRecyclerViewAdapter extends RecyclerView.Adapter<RecipeIn
         @Nullable
         TextView stepDesc;
 
+        @BindView(R.id.recipe_step_image)
+        @Nullable
+        ImageView imageOfStep;
+
         @BindView(R.id.recipe_step_full_desc)
         @Nullable
         TextView fullStepDesc;
@@ -139,9 +145,19 @@ public class RecipeInfoRecyclerViewAdapter extends RecyclerView.Adapter<RecipeIn
 
         public void loadData(StepBean data){
             step = data;
-            stepDesc.setText(data.getShortDescription());
+            if (stepDesc != null) {
+                stepDesc.setText(data.getShortDescription());
+            }
             if(fullStepDesc!=null) {
                 fullStepDesc.setText(data.getDescription());
+            }
+            if (imageOfStep != null && data.getFixedThumbnailURL().length()>0) {
+                imageOfStep.setVisibility(View.VISIBLE);
+                Picasso.with(imageOfStep.getContext()).load(data.getFixedThumbnailURL()).into(imageOfStep);
+            } else {
+                if(imageOfStep!=null) {
+                    imageOfStep.setVisibility(View.GONE);
+                }
             }
         }
 

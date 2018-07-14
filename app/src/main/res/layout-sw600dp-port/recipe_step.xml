@@ -26,15 +26,33 @@
         tools:text="Press the crust into baking form.">
     </TextView>
 
-    <TextView
-        android:id="@+id/recipe_step_full_desc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_weight="1"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        tools:text="Do this later this and at the and finish the app :)"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/recipe_step_full_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_weight="1"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            tools:text="Do this later this and at the and finish the app :)"/>
+
+        <ImageView
+            android:id="@+id/recipe_step_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="8dp"
+            android:layout_weight="1"
+            android:contentDescription="@string/recipe_step_image_desc"
+            android:scaleType="fitXY"
+            tools:srcCompat="@drawable/ic_launcher_background"/>
+    </LinearLayout>
 
 </LinearLayout>

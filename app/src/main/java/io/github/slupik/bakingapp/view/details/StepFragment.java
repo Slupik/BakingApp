@@ -149,7 +149,7 @@ public class StepFragment extends Fragment {
         }
         if (actualStep != null) {
             fullDesc.setText(actualStep.getDescription());
-            String filmURL = actualStep.getFilmURL();
+            String filmURL = actualStep.getFixedVideoURL();
             if(filmURL.length()>0) {
                 videoView.setVisibility(View.VISIBLE);
                 loadVideoURL(filmURL);

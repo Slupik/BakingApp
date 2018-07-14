@@ -37,7 +37,7 @@ public class RecipesFragment extends Fragment {
 
     @Nullable
     private SimpleIdlingResource mIdlingResource;
-    private static final boolean TEST_UX = false;
+    public static final boolean TEST_UX = false;
 
     private static final String ARG_COLUMN_COUNT = "column-count";
     private int mColumnCount = 1;

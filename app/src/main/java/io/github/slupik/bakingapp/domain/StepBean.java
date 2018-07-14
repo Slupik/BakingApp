@@ -10,6 +10,8 @@ import android.support.annotation.NonNull;
 import com.google.gson.annotations.SerializedName;
 
 public class StepBean {
+    private static final boolean TEST_UX = true;
+
     @SerializedName("id")
     private int id = -1;
     @SerializedName("shortDescription")
@@ -45,6 +47,16 @@ public class StepBean {
         this.description = description;
     }
 
+    @NonNull
+    public String getFixedVideoURL() {
+        if(getVideoURL()!=null && getVideoURL().length()>0){
+            return getVideoURL();
+        } else if(getThumbnailURL()!=null && getThumbnailURL().endsWith(".mp4")){
+            return getThumbnailURL();
+        }
+        return "";
+    }
+
     public String getVideoURL() {
         return videoURL;
     }
@@ -57,17 +69,20 @@ public class StepBean {
         return thumbnailURL;
     }
 
-    public void setThumbnailURL(String thumbnailURL) {
-        this.thumbnailURL = thumbnailURL;
-    }
-
     @NonNull
-    public String getFilmURL(){
-        if(getVideoURL()!=null && getVideoURL().length()>0){
-            return getVideoURL();
-        } else if(getThumbnailURL()!=null && getThumbnailURL().endsWith(".mp4")){
+    public String getFixedThumbnailURL() {
+        if (getThumbnailURL()==null || getThumbnailURL().length() == 0 || getThumbnailURL().endsWith(".mp4")) {
+            if(TEST_UX) {
+                return "http://finedininglovers.cdn.crosscast-system.com/ImageAlbum/13965/original_how-to-make-spring-rolls-2.jpg";
+            } else {
+                return "";
+            }
+        } else {
             return getThumbnailURL();
         }
-        return "";
+    }
+
+    public void setThumbnailURL(String thumbnailURL) {
+        this.thumbnailURL = thumbnailURL;
     }
 }
