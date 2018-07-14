@@ -67,11 +67,11 @@ public class MainActivityTest {
     public void validateIntentSentToPackage() throws InterruptedException {
         int position = 3;
 
-        onView(withId(R.id.master_list_fragment))
-                .perform(RecyclerViewActions.actionOnItemAtPosition(position, click()));
-
         //Loading time shouldn't be longer
         Thread.sleep(2000);
+
+        onView(withId(R.id.master_list_fragment))
+                .perform(RecyclerViewActions.actionOnItemAtPosition(position, click()));
 
         intended(toPackage("io.github.slupik.bakingapp"));
         intended(hasExtra(RecipeInfoActivity.ARG_RECIPE_DATA, new Gson().toJson(data.get(position))));
