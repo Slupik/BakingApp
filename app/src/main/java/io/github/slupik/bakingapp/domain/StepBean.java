@@ -10,7 +10,7 @@ import android.support.annotation.NonNull;
 import com.google.gson.annotations.SerializedName;
 
 public class StepBean {
-    private static final boolean TEST_UX = true;
+    private static final boolean TEST_UX = false;
 
     @SerializedName("id")
     private int id = -1;
