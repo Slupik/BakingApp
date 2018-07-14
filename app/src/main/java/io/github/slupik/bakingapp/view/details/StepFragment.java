@@ -69,6 +69,7 @@ public class StepFragment extends Fragment {
     private SimpleExoPlayer exoPlayer;
     private long lastTime = 0;
     private long lastId = -1;
+    private String lastVideoURL = "";
 
     private static final String ARG_STEP_DATA = "step-data";
     private static final String ARG_VIDEO_TIME = "video-time";
@@ -169,81 +170,97 @@ public class StepFragment extends Fragment {
 
     private void loadVideoURL(String url) {
         try {
-            TrackSelector trackSelector = new DefaultTrackSelector();
-            LoadControl loadControl = new DefaultLoadControl();
-            exoPlayer = ExoPlayerFactory.newSimpleInstance(this.getContext(), trackSelector, loadControl);
-
-            Uri videoURI = Uri.parse(url);
-
-            DefaultHttpDataSourceFactory dataSourceFactory = new DefaultHttpDataSourceFactory("exoplayer_video");
-            ExtractorsFactory extractorsFactory = new DefaultExtractorsFactory();
-            MediaSource mediaSource = new ExtractorMediaSource(videoURI, dataSourceFactory, extractorsFactory, null, null);
-
-            videoView.setPlayer(exoPlayer);
-            exoPlayer.prepare(mediaSource);
-            exoPlayer.setPlayWhenReady(true);
-
-            exoPlayer.addListener(new ExoPlayer.EventListener() {
-
-                @Override
-                public void onTimelineChanged(Timeline timeline, Object manifest) {
-
-                }
-
-                @Override
-                public void onTracksChanged(TrackGroupArray trackGroups, TrackSelectionArray trackSelections) {
-
-                }
-
-                @Override
-                public void onLoadingChanged(boolean isLoading) {
-
-                }
-
-                @Override
-                public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
-
-                    switch(playbackState) {
-                        case ExoPlayer.STATE_BUFFERING:
-                            break;
-                        case ExoPlayer.STATE_ENDED:
-                            exoPlayer.seekTo(0);
-                            break;
-                        case ExoPlayer.STATE_IDLE:
-                            break;
-                        case ExoPlayer.STATE_READY:
-                            break;
-                        default:
-                            break;
-                    }
-                }
-
-                @Override
-                public void onPlayerError(ExoPlaybackException error) {
-
-                }
-
-                @Override
-                public void onPositionDiscontinuity() {
-
-                }
-            });
-            if(actualStep.getId()==lastId) {
-                exoPlayer.seekTo(lastTime);
-            } else {
-                exoPlayer.seekTo(0);
-            }
+            lastVideoURL = url;
+            initMediaPlayer(false);
             lastTime = 0;
-            exoPlayer.setPlayWhenReady(true);//replay from start
         }catch (Exception e){
             Log.e("StepFragment"," exoplayer error "+ e.toString());
         }
+    }
+
+    private void initMediaPlayer(boolean isOnlyResume) {
+        Uri videoURI = Uri.parse(lastVideoURL);
+        if(exoPlayer!=null && isOnlyResume) return;
+
+        TrackSelector trackSelector = new DefaultTrackSelector();
+        LoadControl loadControl = new DefaultLoadControl();
+        exoPlayer = ExoPlayerFactory.newSimpleInstance(this.getContext(), trackSelector, loadControl);
+        videoView.setPlayer(exoPlayer);
+
+        DefaultHttpDataSourceFactory dataSourceFactory = new DefaultHttpDataSourceFactory("exoplayer_video");
+        ExtractorsFactory extractorsFactory = new DefaultExtractorsFactory();
+        MediaSource mediaSource = new ExtractorMediaSource(videoURI, dataSourceFactory, extractorsFactory, null, null);
+
+        exoPlayer.prepare(mediaSource);
+        exoPlayer.setPlayWhenReady(true);
+
+        exoPlayer.addListener(new ExoPlayer.EventListener() {
+
+            @Override
+            public void onTimelineChanged(Timeline timeline, Object manifest) {
+
+            }
+
+            @Override
+            public void onTracksChanged(TrackGroupArray trackGroups, TrackSelectionArray trackSelections) {
+
+            }
+
+            @Override
+            public void onLoadingChanged(boolean isLoading) {
+
+            }
+
+            @Override
+            public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
+
+                switch(playbackState) {
+                    case ExoPlayer.STATE_BUFFERING:
+                        break;
+                    case ExoPlayer.STATE_ENDED:
+                        exoPlayer.seekTo(0);
+                        break;
+                    case ExoPlayer.STATE_IDLE:
+                        break;
+                    case ExoPlayer.STATE_READY:
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            @Override
+            public void onPlayerError(ExoPlaybackException error) {
+
+            }
+
+            @Override
+            public void onPositionDiscontinuity() {
+
+            }
+        });
+        if(actualStep.getId()==lastId) {
+            exoPlayer.seekTo(lastTime);
+        } else {
+            exoPlayer.seekTo(0);
+        }
+        exoPlayer.setPlayWhenReady(true);//replay from start
     }
 
     @Override
     public void onPause() {
         super.onPause();
         lastTime = getPosition();
+
+        exoPlayer.stop();
+        exoPlayer.release();
+        exoPlayer = null;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        initMediaPlayer(true);
     }
 
     public long getPosition() {
