@@ -239,7 +239,7 @@ public class StepFragment extends Fragment {
 
             }
         });
-        if(actualStep.getId()==lastId) {
+        if(actualStep!=null && actualStep.getId()==lastId) {
             exoPlayer.seekTo(lastTime);
         } else {
             exoPlayer.seekTo(0);
@@ -252,14 +252,17 @@ public class StepFragment extends Fragment {
         super.onPause();
         lastTime = getPosition();
 
-        exoPlayer.stop();
-        exoPlayer.release();
-        exoPlayer = null;
+        if(exoPlayer!=null) {
+            exoPlayer.stop();
+            exoPlayer.release();
+            exoPlayer = null;
+        }
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        if(lastVideoURL==null || lastVideoURL.length()==0) return;
         initMediaPlayer(true);
     }
 

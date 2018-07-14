@@ -35,7 +35,7 @@ public class DetailsActivityTest {
     @Rule
     // third parameter is set to false which means the activity is not started automatically
     public ActivityTestRule<DetailsActivity> mActivityRule =
-            new ActivityTestRule<>(DetailsActivity.class);
+            new ActivityTestRule<>(DetailsActivity.class, false, false);
 
     @Before
     public void setUp() {
